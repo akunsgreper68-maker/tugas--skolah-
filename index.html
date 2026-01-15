@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Handcrafted Coffee</title>
+    <style>
+        /* Reset and base */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            color: #333;
+            background-color: #fff;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 40px;
+            border-bottom: 1px solid #ddd;
+            background: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo img {
+            width: 40px;
+            height: 40px;
+        }
+        .search-bar {
+            flex-grow: 1;
+            max-width: 480px;
+            margin: 0 20px;
+            position: relative;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 8px 40px 8px 16px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        .search-bar button {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 16px;
+            color: #666;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 24px;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            color: #444;
+        }
+        nav ul li:hover {
+            color: #1e3932;
+        }
+        .user-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: url('https://cdn-icons-png.flaticon.com/512/1077/1077114.png') center center no-repeat;
+            background-size: contain;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 60px 40px;
+            gap: 40px;
+            background: #f9f7f3;
+        }
+        .hero-text h1 {
+            font-size: 48px;
+            color: #1e3932;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .hero-text p {
+            font-size: 18px;
+            color: #595959;
+            margin-bottom: 20px;
+        }
+        .hero-text button {
+            background-color: #1e3932;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .hero-text button:hover {
+            background-color: #163026;
+        }
+        .hero-image {
+            flex-shrink: 0;
+            max-width: 450px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .hero-image img {
+            width: 100%;
+            display: block;
+            border-radius: 12px;
+        }
+
+        /* Handcrafted Curations */
+        .curations {
+            background: url('https://images.unsplash.com/photo-1514297123612-8d4b03969d6e?auto=format&fit=crop&w=1470&q=80') center center/cover no-repeat;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            color: white;
+        }
+        .curations .item {
+            text-align: center;
+            max-width: 120px;
+            cursor: pointer;
+        }
+        .curations .item img {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border: 2px solid white;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 8px;
+        }
+        .curations .item p {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Barista Recommends Section */
+        .recommend-section {
+            padding: 40px 40px 60px;
+            background: #fff;
+        }
+        .recommend-section h2 {
+            font-weight: 700;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #1e3932;
+        }
+        .recommend-items {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .recommend-item {
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            flex: 1 1 220px;
+            max-width: 220px;
+            display: flex;
+            flex-direction: column;
+        }
+        .recommend-item img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+        .recommend-item-content {
+            padding: 16px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .recommend-item h3 {
+            font-size: 18px;
+            margin: 0 0 8px;
+        }
+        .recommend-item .price {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: #1e3932;
+        }
+        .recommend-item button {
+            background-color: #1e3932;
+            color: white;
+            border: none;
+            padding: 10px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .recommend-item button:hover {
+            background-color: #163026;
+        }
+        .stars {
+            color: #f5a623;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .label-bestseller {
+            background-color: #cde5d0;
+            color: #1e3932;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        /* Learn more section */
+        .learn-more {
+            background: url('https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=1470&q=80') center center/cover no-repeat;
+            padding: 60px 20px;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+        .learn-more .tag {
+            background-color: #1e393250;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 12px;
+            letter-spacing: 1.5px;
+        }
+        .learn-more h2 {
+            font-size: 32px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        .learn-more p {
+            font-size: 16px;
+            max-width: 520px;
+            margin: 0 auto 24px;
+            line-height: 1.5;
+            color: #dedede;
+        }
+        .learn-more button {
+            background-color: #1e3932;
+            border: none;
+            color: white;
+            padding: 12px 32px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+        .learn-more button:hover {
+            background-color: #163026;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1e3932;
+            color: #b0c7b6;
+            padding: 48px 40px 30px;
+            font-size: 14px;
+        }
+        footer .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        footer .col {
+            flex: 1 1 180px;
+            min-width: 160px;
+        }
+        footer .col h4 {
+            color: white;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        footer .col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            line-height: 1.7;
+        }
+        footer .col ul li {
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        footer .col ul li:hover {
+            color: white;
+        }
+        footer .social-icons {
+            display: flex;
+            gap: 16px;
+            margin-top: 10px;
+        }
+        footer .social-icons a img {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) invert(1);
+            transition: filter 0.3s ease;
+        }
+        footer .social-icons a:hover img {
+            filter: brightness(0.7) invert(0.8);
+        }
+
+        /* Download buttons */
+        .downloads {
+            margin-top: 20px;
+        }
+        .downloads a {
+            display: inline-block;
+            margin-right: 12px;
+        }
+        .downloads img {
+            height: 36px;
+            width: auto;
+        }
+
+        /* Footer bottom line */
+        .footer-bottom {
+            border-top: 1px solid #395043;
+            margin-top: 30px;
+            padding-top: 16px;
+            text-align: center;
+            font-size: 12px;
+            color: #567561;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero {
+                flex-direction: column;
+                padding: 40px 20px;
+            }
+            .hero-text h1 {
+                font-size: 36px;
+            }
+            nav ul {
+                gap: 16px;
+            }
+            .recommend-items {
+                justify-content: center;
+            }
+        }
+        @media (max-width: 600px) {
+            header {
+                flex-wrap: wrap;
+                padding: 12px 20px;
+            }
+            .search-bar {
+                margin: 10px 0;
+                max-width: 100%;
+                order: 3;
+                width: 100%;
+            }
+            nav ul {
+                width: 100%;
+                justify-content: space-around;
+                order: 2;
+            }
+            .hero-text button {
+                width: 100%;
+            }
+            .curations {
+                gap: 20px;
+            }
+            .recommend-items {
+                flex-direction: column;
+                gap: 30px;
+                align-items: center;
+            }
+            footer .footer-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <!-- Bisa diganti dengan logo SVG atau PNG -->
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Starbucks_Coffee_Logo.svg" alt="Logo" />
+    </div>
+    <div class="search-bar">
+        <input type="search" placeholder="Tell us what you need" aria-label="Search" />
+        <button aria-label="Search">&#128269;</button>
+    </div>
+    <nav>
+        <ul>
+            <li>Home</li>
+            <li>Gift</li>
+            <li>Order</li>
+            <li>Pay</li>
+            <li>Store</li>
+        </ul>
+    </nav>
+    <div class="user-icon" title="User Account"></div>
+</header>
+
+<section class="hero">
+    <div class="hero-text">
+        <h1>HANDCRAFTED</h1>
+        <p>Choose from our wide range of handcrafted coffees</p>
+        <button>Order Now</button>
+    </div>
+    <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80" alt="Handcrafted coffee" />
+    </div>
+</section>
+
+<section class="curations" aria-label="Handcrafted Curations">
+    <div class="item">
+        <img src="https://images.unsplash.com/photo-1556702615-cf5ba7b7dc6e?auto=format&fit=crop&w=70&q=80" alt="Bestseller"/>
+        <p>Bestseller</p>
+    </div>
+    <div class="item">
+        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=70&q=80" alt="Drinks" />
+        <p>Drinks</p>
+    </div>
+    <div class="item">
+        <img src="https://images.unsplash.com/photo-1523983301393-29138d5b78a5?auto=format&fit=crop&w=70&q=80" alt="Food" />
+        <p>Food</p>
+    </div>
+    <div class="item">
+        <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=70&q=80" alt="Merchandise" />
+        <p>Merchandise</p>
+    </div>
+    <div class="item">
+        <img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&w=70&q=80" alt="Coffee At Home" />
+        <p>Coffee At Home</p>
+    </div>
+</section>
+
+<section class="recommend-section" aria-label="Barista Recommends">
+    <h2>Barista Recommends</h2>
+    <div class="recommend-items">
+        <article class="recommend-item" aria-label="Java Chip Frappuccino">
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=400&q=80" alt="Java Chip Frappuccino" />
+            <div class="recommend-item-content">
+                <span class="label-bestseller">Bestseller</span>
+                <h3>Java Chip Frappuccino</h3>
+                <div class="stars" aria-label="4 out of 5 stars">★★★★☆</div>
+                <div class="price">$15.20</div>
+                <button>Add Item</button>
+            </div>
+        </article>
+        <article class="recommend-item" aria-label="Caffe Americano">
+            <img src="https://images.unsplash.com/photo-1528756514091-dee3b181cf6b?auto=format&fit=crop&w=400&q=80" alt="Caffe Americano" />
+            <div class="recommend-item-content">
+                <span class="label-bestseller">Bestseller</span>
+                <h3>Caffe Americano</h3>
+                <div class="stars" aria-label="3 out of 5 stars">★★★☆☆</div>
+                <div class="price">$10.30</div>
+                <button>Add Item</button>
+            </div>
+        </article>
+        <article class="recommend-item" aria-label="Cold Coffee">
+            <img src="https://images.unsplash.com/photo-1432139509613-5c4255815697?auto=format&fit=crop&w=400&q=80" alt="Cold coffee" />
+            <div class="recommend-item-content">
+                <span class="label-bestseller">Bestseller</span>
+                <h3>Cold coffee</h3>
+                <div class="stars" aria-label="4 out of 5 stars">★★★★☆</div>
+                <div class="price">$11.20</div>
+                <button>Add Item</button>
+            </div>
+        </article>
+        <article class="recommend-item" aria-label="Double Chocolate Chip">
+            <img src="https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?auto=format&fit=crop&w=400&q=80" alt="Double Chocolate Chip" />
+            <div class="recommend-item-content">
+                <span class="label-bestseller">Bestseller</span>
+                <h3>Double Chocolate Chip</h3>
+                <div class="stars" aria-label="4 out of 5 stars">★★★★☆</div>
+                <div class="price">$11.20</div>
+                <button>Add Item</button>
+            </div>
+        </article>
+    </div>
+</section>
+
+<section class="learn-more" aria-label="Learn more about coffee">
+    <div class="tag">COFFEE CULTURE</div>
+    <h2>How Coffee Stirred Rebels & Rebels</h2>
+    <p>Delited by the jovial character of coffee, everyone was inspired to bring it home leading to some of the most</p>
+    <button>Learn More</button>
+</section>
+
+<footer>
+    <div class="footer-container">
+        <div class="col">
+            <h4>About Us</h4>
+            <ul>
+                <li>Our Heritage</li>
+                <li>Our Company</li>
+                <li>Coffeehouse</li>
+            </ul>
+        </div>
+        <div class="col">
+            <h4>Responsibility</h4>
+            <ul>
+                <li>Community</li>
+                <li>Ethical Sourcing</li>
+                <li>Environment</li>
+                <li>Diversity</li>
+            </ul>
+        </div>
+        <div class="col">
+            <h4>Quick Links</h4>
+            <ul>
+                <li>Careers</li>
+                <li>Season’s Gifting</li>
+                <li>FAQs</li>
+                <li>Customer Service</li>
+                <li>Delivery</li>
+            </ul>
+        </div>
+        <div class="col">
+            <h4>Social Media</h4>
+            <div class="social-icons">
+                <a href="#" aria-label="Twitter">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter icon" />
+                </a>
+                <a href="#" aria-label="Instagram">
+                    <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram icon" />
+                </a>
+                <a href="#" aria-label="Facebook">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook icon" />
+                </a>
+            </div>
+            <div class="downloads">
+                <a href="#" aria-label="Download on Google Play Store">
+                    <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Google Play Store" />
+                </a>
+                <a href="#" aria-label="Download on Apple App Store">
+                    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Apple App Store" style="height: 40px;"/>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        Web Accessibility | Privacy Statement | Terms of Use | Contact Us<br />
+        &copy; 2022 Starbucks Coffee Company. All rights reserved.
+    </div>
+</footer>
+
+</body>
+  </html>
